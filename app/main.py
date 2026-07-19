@@ -1,10 +1,13 @@
 from config.settings import settings
 from utils.logger import logger
+from bot.bot import RentBot
 
 def main():
-    logger.info("Barcelona Rent Bot is starting...")
-    logger.info(f"Check interval: {settings.CHECK_INTERVAL} seconds")
-    logger.info("Project initialized successfully.")
+    logger.info("Starting Barcelona Rent Bot...")
+    if not settings.TELEGRAM_BOT_TOKEN:
+        logger.error("TELEGRAM_BOT_TOKEN is not configured.")
+        return
+    RentBot(settings.TELEGRAM_BOT_TOKEN).run()
 
 if __name__ == "__main__":
     main()
